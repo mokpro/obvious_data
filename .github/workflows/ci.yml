@@ -10,14 +10,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
         ruby-version: [2.4.1, 2.7.2]
         include:
           - ruby-version: head
             experimental: true
-
+    continue-on-error: ${{ matrix.experimental }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby ${{ matrix.ruby-version }}
