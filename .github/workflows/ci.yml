@@ -22,7 +22,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
       - name: Install Postgres pkgs
-        run: sudo apt-get install postgresql-client-$PG_VERSION postgresql-server-dev-$PG_VERSION
+        run: sudo apt-get install postgresql-client-$PG_VERSION postgresql-server-dev-$PG_VERSION setup
       - name: setup pg_dump
         run: setup pg_dump
       - name: ls
