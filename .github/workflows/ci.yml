@@ -28,8 +28,6 @@ jobs:
           sudo -E sh -c 'service postgresql stop'
           sleep 5s
           sudo -E sh -c 'service postgresql start $PG_VERSION'
-      - name: setup postgres user
-        run: psql -U postgres -d postgres -c 'select 1;'
       - name: Install Gems
         run: bundle install
       - name: Run tests
