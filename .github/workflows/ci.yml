@@ -24,10 +24,11 @@ jobs:
       - name: Install Postgres pkgs
         run: sudo apt-get install postgresql-client-$PG_VERSION postgresql-server-dev-$PG_VERSION
       - name: setup pg_dump
-        run: |
-          setup pg_dump
-          ls -al /usr/lib/postgresql/
-          sudo ln -sfn /usr/lib/postgresql/$PG_VERSION/bin/pg_dump /usr/bin/pg_dump
+        run: setup pg_dump
+      - name: ls
+        run: ls -al /usr/lib/postgresql/
+      - name: ln
+        run: sudo ln -sfn /usr/lib/postgresql/$PG_VERSION/bin/pg_dump /usr/bin/pg_dump
       - name: restart postgres
         run: |
           sudo -E sh -c 'service postgresql stop'
