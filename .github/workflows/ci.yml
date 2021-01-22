@@ -23,6 +23,11 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
       - name: Install Postgres pkgs
         run: sudo apt-get install postgresql-client-$PG_VERSION postgresql-server-dev-$PG_VERSION
+      - name: restart postgres
+        run: |
+          sudo -E sh -c 'service postgresql stop'
+          sleep 5s
+          sudo -E sh -c 'service postgresql start $PG_VERSION'
       - name: verify postgres
         run: psql -U postgres -d postgres -c 'select setting from pg_settings where name = $m$server_version$m$;'
       - name: Install Gems
