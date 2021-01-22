@@ -24,16 +24,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
       - name: Install dependencies
-        run: |
-          sudo apt-get install postgresql-client-$PG_VERSION postgresql-server-dev-$PG_VERSION
-          setup pg_dump
-          - ls -al /usr/lib/postgresql/
-          - sudo ln -sfn /usr/lib/postgresql/$PG_VERSION/bin/pg_dump /usr/bin/pg_dump
-          # start up the specific version of PG
-          - sudo -E sh -c 'service postgresql stop'
-          - sleep 5s
-          - sudo -E sh -c 'service postgresql start $PG_VERSION'
-          - psql -U postgres -d postgres -c 'select setting from pg_settings where name = $m$server_version$m$;'
-                  bundle install
+        run: bundle install
       - name: Run tests
         run: bundle exec rspec
