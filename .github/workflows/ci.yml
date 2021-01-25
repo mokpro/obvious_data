@@ -30,14 +30,13 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
       - name: trust all postgres connections
         run: |
-          ls -ltr /etc/postgresql/13/main
-          sudo echo "local all postgres trust" >> /etc/postgresql/13/main/pg_hba.conf
+          sudo -E sh -c 'echo "local all postgres trust" >> /etc/postgresql/13/main/pg_hba.conf'
           sudo cat /etc/postgresql/13/main/pg_hba.conf
       - name: restart postgres
         run: |
           sudo -E sh -c 'service postgresql stop'
           sleep 5s
-          sudo -E sh -c 'service postgresql start 11'
+          sudo -E sh -c 'service postgresql start 13'
       - name: Install Gems
         run: bundle install
       - name: Run tests
