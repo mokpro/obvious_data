@@ -1,34 +1,19 @@
---
--- PostgreSQL database dump
---
-
 SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
-SET search_path = public, pg_catalog;
+SET row_security = off;
 
 --
 -- Name: do_dummy(); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION do_dummy() RETURNS trigger
+CREATE FUNCTION public.do_dummy() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
               begin
@@ -39,13 +24,25 @@ CREATE FUNCTION do_dummy() RETURNS trigger
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
--- Name: dummy; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE dummy (
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: dummy; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.dummy (
     id integer NOT NULL
 );
 
@@ -54,7 +51,7 @@ CREATE TABLE dummy (
 -- Name: dummy_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE dummy_id_seq
+CREATE SEQUENCE public.dummy_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -66,46 +63,56 @@ CREATE SEQUENCE dummy_id_seq
 -- Name: dummy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE dummy_id_seq OWNED BY dummy.id;
+ALTER SEQUENCE public.dummy_id_seq OWNED BY public.dummy.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version character varying(255) NOT NULL
 );
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: dummy id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY dummy ALTER COLUMN id SET DEFAULT nextval('dummy_id_seq'::regclass);
+ALTER TABLE ONLY public.dummy ALTER COLUMN id SET DEFAULT nextval('public.dummy_id_seq'::regclass);
 
 
 --
--- Name: dummy_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY dummy
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: dummy dummy_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.dummy
     ADD CONSTRAINT dummy_pkey PRIMARY KEY (id);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20140724185749');
+INSERT INTO "schema_migrations" (version) VALUES
+('20140724185749'),
+('20140724192457');
 
-INSERT INTO schema_migrations (version) VALUES ('20140724192457');
+
