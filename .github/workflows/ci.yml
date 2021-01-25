@@ -28,6 +28,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
+      - name: trust all postgres connections
+        run: cat /etc/postgresql/11/main/pg_hba.conf
       - name: restart postgres
         run: |
           sudo -E sh -c 'service postgresql stop'
