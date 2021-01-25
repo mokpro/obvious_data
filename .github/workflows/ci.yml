@@ -28,7 +28,7 @@ jobs:
         run: |
           sudo -E sh -c 'service postgresql stop'
           sleep 5s
-          sudo -E sh -c 'service postgresql start $PG_VERSION'
+          sudo -E sh -c 'service postgresql start 11'
       - name: Install Gems
         run: bundle install
       - name: Run tests
