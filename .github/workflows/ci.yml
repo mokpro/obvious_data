@@ -22,7 +22,6 @@ jobs:
         uses: harmon758/postgresql-action@v1
         with:
           postgresql version: '11'
-          postgresql password: 'postgres'
       - name: restart postgres
         run: |
           sudo -E sh -c 'service postgresql stop'
@@ -31,4 +30,6 @@ jobs:
       - name: Install Gems
         run: bundle install
       - name: Run tests
-        run: bundle exec rspec
+        run: |
+          bundle exec rake app:db:test:prepare
+          bundle exec rspec
