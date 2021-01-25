@@ -30,6 +30,7 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
       - name: trust all postgres connections
         run: |
+          ls -ltr /etc/postgresql/13/main
           sudo echo "local all postgres trust" >> /etc/postgresql/13/main/pg_hba.conf
           sudo cat /etc/postgresql/13/main/pg_hba.conf
       - name: restart postgres
