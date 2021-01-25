@@ -12,8 +12,6 @@ jobs:
     strategy:
       matrix:
         ruby-version: [2.4.1]
-    env:
-      POSTGRES_PASSWORD: example
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby ${{ matrix.ruby-version }}
@@ -24,6 +22,7 @@ jobs:
         uses: harmon758/postgresql-action@v1
         with:
           postgresql version: '11'
+          postgresql password: 'postgres'
       - name: restart postgres
         run: |
           sudo -E sh -c 'service postgresql stop'

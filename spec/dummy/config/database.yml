@@ -3,18 +3,18 @@ development:
   database: obvious_data_development
   encoding: unicode
   pool: 5
-  username: dummy
+  username: postgres
   password:
 
 test:
   adapter: postgresql
   database: obvious_data_test
   username: postgres
-  password: postgres
+  password:
 
 production:
   adapter: postgresql
   database: dummy_production
   pool: 5
-  username: dummy
+  username: postgres
   password:
