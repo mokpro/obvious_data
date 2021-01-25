@@ -10,7 +10,7 @@ test:
   adapter: postgresql
   database: obvious_data_test
   username: postgres
-  password:
+  password: postgres
 
 production:
   adapter: postgresql
